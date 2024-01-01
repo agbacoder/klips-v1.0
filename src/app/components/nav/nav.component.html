@@ -1,0 +1,142 @@
+<!-- Header -->
+<header id="header" class="bg-secondary">
+    <nav class="container mx-auto flex justify-between items-center py-8 px-4">
+      <!-- App Name -->
+      <a class="text-3xl text-indigo-400 font-bold uppercase mr-4" routerLink="/" (click)="closeDropdown()" >Klips</a>
+
+      <!--Search component -->
+      <div class=' hidden lg:block xlg:block max-w-md mx-auto'>
+        <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-secondary overflow-hidden">
+            <div class="grid place-items-center h-full w-12 text-gray-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+      
+            <input
+            class="peer h-full w-full outline-none text-sm text-white bg-secondary pr-2"
+            type="text"
+            id="search"
+            placeholder="Search something.." /> 
+        </div>
+      </div>
+<div class="flex flex-grow items-center ">
+        <!-- Primary Navigation --> 			
+		<div>
+      <!-- hamburger-menu-->
+
+<div class="relative block lg:hidden xlg:hidden">
+  <button
+class="text-indigo-600 focus:outline-none focus:text-indigo-800 "
+(click)="toggleDropdown()"
+>
+<svg
+  class="h-7 w-7"
+  fill="none"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  stroke-width="2"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+>
+  <path d="M4 6h16M4 12h16m-7 6h7"></path>
+</svg>
+</button>
+
+
+
+<div *ngIf="isDropdownOpen" class=" mt-2 w-48 bg-secondary border:none rounded-md shadow-lg absolute z-50 leading-10">
+<!-- Dropdown content -->
+<ul class="flex flex-col mt-1">
+  <!-- Navigation Links -->
+  <li *ngIf="!(auth.isAuthenticated$ | async); else authlinks">
+    <a class="px-2" href="#" (click)="openModal($event); closeDropdown()">Login / Register</a>
+  </li>
+  <ng-template #authlinks>
+    <li>
+      <a class="px-2"routerLink="/manage" routerLinkActive="text-indigo-500" [routerLinkActiveOptions]="{ exact: true}" [queryParams]="{ sort: '1'}" (click)="closeDropdown()" >Manage</a>
+    </li>
+    <li>
+      <a class="px-2" routerLink="/upload" routerLinkActive="text-indigo-500" [routerLinkActiveOptions]="{ exact: true}" (click)="closeDropdown()" >Upload</a>
+    </li>
+    <li>
+      <a class="px-2" (click)="auth.logout($event); closeDropdown()">Logout</a>
+    </li>
+  </ng-template>
+  
+  <li>
+    <a class="px-2" routerLink="/about" routerLinkActive="text-indigo-500" [routerLinkActiveOptions]="{ exact: true}" (click)="closeDropdown()" >About</a>
+  </li>
+  
+</ul>
+
+  <hr class="my-2 border-t border-gray-300">
+
+  <!-- search component -->
+<div class='max-w-md mx-auto'>
+  <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-secondary overflow-hidden">
+      <div class="grid place-items-center h-full w-12 text-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+      </div>
+
+      <input
+      class="peer h-full w-full outline-none text-sm text-white bg-secondary pr-2"
+      type="text"
+      id="search"
+      placeholder="Search something.." /> 
+  </div>
+</div>
+</div>
+</div>
+
+     
+</div>
+
+
+
+        <div class="hidden lg:block xlg:block">
+          <ul class="flex flex-row mt-1">
+            <!-- Navigation Links -->
+            <li *ngIf="!(auth.isAuthenticated$ | async); else authlinks">
+              <a class="px-2" href="#" (click)="openModal($event)">Login / Register</a>
+            </li>
+            <ng-template #authlinks>
+              <li>
+                <a class="px-2"routerLink="/manage" routerLinkActive="text-indigo-500" [routerLinkActiveOptions]="{ exact: true}" [queryParams]="{ sort: '1'}" >Manage</a>
+              </li>
+              <li>
+                <a class="px-2" routerLink="/upload" routerLinkActive="text-indigo-500" [routerLinkActiveOptions]="{ exact: true}">Upload</a>
+              </li>
+              <li>
+                <a class="px-2" href="#" (click)="auth.logout($event)">Logout</a>
+              </li>
+            </ng-template>
+            <li>
+              <a class="px-2" routerLink="/about" routerLinkActive="text-indigo-500" [routerLinkActiveOptions]="{ exact: true}">About</a>
+            </li>
+            
+          </ul>
+        </div>
+       
+        <!-- Language Switcher -->
+        <ul class="flex flex-row ml-auto">
+          <li>
+            <a href="#">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAA1CAMAAACA7r40AAAA/FBMVEWyIjNPN2Y8O27///8/PnBOTXxycpY9PG9RUX5HR3dIR3dLSnlPTny4uMpWVYFFRHVwb5VlZIx7e52DgqOIh6aIiKc+PXBJSHhTUn9hYYqyIjReXohgX4lYV4Lr6/C2tcjPdYB0c5haWYRYV4Nra5GJiac+PW/FxdTHYG1RUH3eoajltbtOTXvty89BQHHg3+hSUX6GYoC6usyVlbFycZa7u8yUk6+sq8FCQXO0tMe1tMhiYYpMS3pDQnNvbpTExNN8fJ7GxdTGxtWCgqLHx9WXlrLXi5SYl7Kiobrg4Oiiorrn5u3n5+2jo7ukpLvw8PTx8fX09Pf19firqsC5sMNxAAAAAnRSTlPQ9qN1Xw4AAAGlSURBVHhe7ZXFiiRBFEVjznvp5W7t7j3u7m7//y8D1dAMGbnI4jW5KOpsgjibCxFcrrtVEmcBGAGQJHB98d3EgEM/ygsg/nwRAy15rxQ4Ywh3JQX49hVgKA/Ad1hDkkGTMSQJjGkOEmo133FmwAEQyl8FfSj3gFgkzjsQAw6AZ796AP2fGcDBS8/ZQ7ZQlJ2d+bEFqp6zhuh9Cf9/pDtKkTs04KBTD4jgx3eICOodoshz1p7M6UUAUQ+Ap2Pf2UMI5UBBX18/Ut7ZQ84Jui10QKsbcA7dt77jxIBDt+sxMNzrD4HL+rZS4Iw9iTZkCjRFmsBUHkcUOGMI7dkpKezuQsrprM3zR76zN572ekdBX623gaONJ0d5B5sGHAA1+QTwRQJgX2Q/7+w9GZGlDZKERpoxgkbDc8s0WscGSo+WGMiNVlgwWuFNjdafPsDe7wzg3RvP2UNCFGVtbX6EoOo7PhgoO1rGnswHiquB4mqgfIcxpBTGkNslMf2JVMAShRxXgJtUwBKFbFbAqicL4U4qYNWThXCHFbDqyUK4swpY9WQhXBX8A2rVjaQ6HWXmAAAAAElFTkSuQmCC" 
+                alt="en" width="22" height="14" class="inline-block">
+              <span class="ml-1">English</span>
+            </a>
+          </li>
+          <li style="display: none;">
+            <a href="#">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABDBAMAAACYZb3pAAAAHlBMVEUpQqK2q8384OL3qa/tKTkAI5Wrt9z////5t7ztKTlzpJCAAAAABXRSTlP++vjs1BQWlgsAAAAxSURBVHgBYmRAA4yKaAJCAugqQgHtyzENAAAAAiD7pzaDr4MfRVEURVGU36IoipK5FLWNJ6UFusbWAAAAAElFTkSuQmCC" 
+                alt="fr" width="22" height="14" class="inline-block">
+                <span class="ml-1">French</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
